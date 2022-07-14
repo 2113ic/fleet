@@ -213,9 +213,9 @@ const Fleet = (function (global) {
      * @param {String} name cookieName
      */
     $deleteCookie(name) {
-      setCookie(name, "", {
+      this.$setCookie(name, "", {
         'max-age': -1
-      })
+      });
     }
 
 
@@ -357,9 +357,7 @@ const Fleet = (function (global) {
 
     constructor(f) {
       super();
-      console.time("init");
       this._init(f);
-      console.timeLog("init");
     }
 
     _init(f) {
@@ -465,14 +463,13 @@ const Fleet = (function (global) {
 
     _processNode(node) {
       const nodeStr = node.outerHTML;
-      const bindAttrReg = /(?<=(?<flag>[:@])(?<bindName>\w+)=")(?<bindVal>[^"]+)/g;
-      const bindAttrs = nodeStr.match(/[:@]/g);
+      const bindAttrReg = /(?<=(?<flag>[$:@])(?<bindName>\w*)=")(?<bindVal>[^"]+)/g;
+      const bindAttrs = nodeStr.match(/[$:@]/g);
       const bindAttrNum = bindAttrs ? bindAttrs.length : 0;
 
       for (let i = 0; i < bindAttrNum; i++) {
         const groups = bindAttrReg.exec(nodeStr).groups;
-
-        this.elm.fNode = node;
+        
         if (groups.flag === "$") {
           this._processRef(node, groups);
           continue;
@@ -484,6 +481,7 @@ const Fleet = (function (global) {
         }
 
         if (groups.flag === ":") {
+          this.elm.fNode.add(node);
           this._processBind(node, groups);
           continue;
         }
@@ -665,7 +663,7 @@ const Fleet = (function (global) {
       };
       this.half = Math.floor(p.pageCount || 7 / 2);
       this.singlePageHide = p.singlePageHide || false;
-      this.jump = p.jump || (() => { });
+      this.jump = p.jump || (() => {});
       [this.prevBtn, this.pager, this.nextBtn] = [...this.el.children];
     }
 
@@ -709,11 +707,11 @@ const Fleet = (function (global) {
 
 
     liFragmentHandle(liFragment) {
-      const list = liFragment.children;
       const { pageCount, pages } = this.info;
 
       if (pages <= pageCount) return;
 
+      const list = liFragment.children;
       const [first, last] = [list[0], list[list.length - 1]];
       const [before, after] = [list[1], list[list.length - 2]];
 
