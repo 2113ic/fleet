@@ -1,8 +1,8 @@
 {
   "name": "fleetjs",
-  "version": "0.0.3",
-  "description": "一个html增强器。",
-  "main": "dist/fleet.js",
+  "version": "0.0.4",
+  "description": "一个html增强器",
+  "main": "dist/fleet.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,283 +1,426 @@
 /* -------------------------------------------------------- **
- *  them
+ *  fleet.scss
  * -------------------------------------------------------- */
-
-
 :root {
-    // 中性色
-    --fl-block: hsl(220, 8%, 15%);
-    --fl-white: hsl(0, 0%, 100%);
+  // 中性色
+  --fl-white: #fff;
+  --fl-black: hsl(220, 8%, 15%);
 
-    // 主题色
-    --fl-primary: hsl(204, 70%, 53%);
-    --fl-primary-hover: hsl(204, 70%, 58%);
-    --fl-primary-seleced: hsla(204, 70%, 53%, 0.185);
+  // 主题色
+  --fl-primary-hs: 204, 70%;
+  --fl-primary: hsl(var(--fl-primary-hs), 50%);
+  --fl-primary-hover: hsl(var(--fl-primary-hs), 55%);
+  --fl-primary-seleced: hsla(var(--fl-primary-hs), 60%, .12);
 
-    // 颜色
-    --fl-red: #eb4646;
-    --fl-green: #1cad70;
-    --fl-orange: #f59b00;
-    --fl-gary: #a2a9b6;
+  // 常见颜色
+  --fl-red-hs: 0, 70%;
+  --fl-blue-hs: 204, 70%;
+  --fl-green-hs: 123, 41%;
+  --fl-orange-hs: 33, 100%;
+  --fl-gary-hs: 0, 0%;
+  --fl-purple-hs: 256, 89%;
+  --fl-pink-hs: 324, 91%;
 
-    // 阴影
-    --fl-card-box-shadow:
-        0 0.125rem 1rem rgba(27, 40, 50, 0.04),
-        0 0.125rem 2rem rgba(27, 40, 50, 0.08),
-        0 0 0 0.0625rem rgba(27, 40, 50, 0.024);
+  // 常见颜色:hover
+  --fl-red: hsl(var(--fl-red-hs), 50%);
+  --fl-blue: hsl(var(--fl-blue-hs), 50%);
+  --fl-green: hsl(var(--fl-green-hs), 50%);
+  --fl-orange: hsl(var(--fl-orange-hs), 49%);
+  --fl-gary: hsl(var(--fl-gary-hs), 44%);
+  --fl-purple: hsl(var(--fl-purple-hs), 78%);
+  --fl-pink: hsl(var(--fl-pink-hs), 73%);
 
-    // 动画
-    --fl-transition-time: .2s;
-}
+  // 常见颜色:hover
+  --fl-red-hover: hsl(var(--fl-red-hs), 55%);
+  --fl-blue-hover: hsl(var(--fl-blue-hs), 55%);
+  --fl-green-hover: hsl(var(--fl-green-hs), 55%);
+  --fl-orange-hover: hsl(var(--fl-orange-hs), 54%);
+  --fl-gary-hover: hsl(var(--fl-gary-hs), 49%);
+  --fl-purple-hover: hsl(var(--fl-purple-hs), 83%);
+  --fl-pink-hover: hsl(var(--fl-pink-hs), 78%);
 
-// 暗色主题
-[fl-theme="dark"],
-:root:not([fl-theme="light"]) {
-    --fl-bg-color: #232529;
-    --fl-font-color: #c7c9d1;
-    --fl-border-color: #45535c;
-    --fl-card-bg-color: #292c31;
-    --fl-list-hover: #414753;
-    --fl-scrollbar-thumb: #292c31;
+  // 阴影
+  --fl-card-shadow:
+    0 0.125rem 1rem hsla(206, 30%, 15%, .04),
+    0 0.125rem 2rem hsla(206, 30%, 15%, .08),
+    0 0 0 0.0625rem hsla(206, 30%, 15%, .024);
 
-    // dark icon
-    --fl-icon-theme: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%23c7c9d1' stroke-linecap='round' stroke-miterlimit='10' stroke-width='32' d='M256 48v48m0 320v48m147.08-355.08l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48m-320 0H48m355.08 147.08l-33.94-33.94M142.86 142.86l-33.94-33.94'/%3E%3Ccircle cx='256' cy='256' r='80' fill='none' stroke='%23c7c9d1' stroke-linecap='round' stroke-miterlimit='10' stroke-width='32'/%3E%3C/svg%3E");
-}
-
-
-// 亮色主题
-[fl-theme="light"],
-:root:not([fl-theme="dark"]) {
-    --fl-bg-color: var(--fl-white);
-    --fl-font-color: #232529;
-    --fl-border-color: rgb(219, 219, 219);
-    --fl-card-bg-color: var(--fl-white);
-    --fl-list-hover: hsl(0, 0%, 90%);
-    --fl-scrollbar-thumb: #ccc;
-
-    // light icon
-    --fl-icon-theme: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z' fill='none' stroke='%23232529' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'/%3E%3C/svg%3E");
+  // 动画
+  --fl-transition-time: .2s;
 }
 
 
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--fl-bg-color);
+    color: var(--fl-font-color);
+  }
+}
+
+
+/* 浅色模式 */
+@media (prefers-color-scheme: light) {
+  body {
+    background: var(--fl-bg-color);
+    color: var(--fl-font-color);
+  }
+}
+
+
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --fl-white-hs: 200, 23%;
+  --fl-black-hs: 220, 8%;
+
+  --fl-bg-color: hsl(var(--fl-white-hs), 97%);
+  --fl-font-color: hsl(var(--fl-black-hs), 15%);
+  --fl-border-color: hsl(var(--fl-black-hs), 83%);
+
+
+  // 卡片
+  --fl-card-bg-color: var(--fl-white);
+
+
+  // 输入框
+  --fl-input-bg-color: var(--fl-white);
+
+
+  // 代码块
+  --fl-code-bg-color: var(--fl-white);
+  --fl-code-border-color: var(--fl-border-color);
+
+
+  // 引用块
+  --fl-blockquote-bg-color: hsl(var(--fl-white-hs), 94%);
+
+
+  // 按钮
+  --fl-btn-bg-color: var(--fl-white);
+  --fl-btn-focus-bg-color: hsl(0, 0%, 95%);
+
+
+  // 滚动条
+  --fl-scrollbar-thumb: hsl(0, 0%, 83%);
+
+
+  // 下拉选择框
+  --fl-select-bg-color: var(--fl-white);
+
+  // 下拉列表
+  --fl-list-bg-color: var(--fl-white);
+  --fl-list-hover-bg-color: hsl(var(--fl-white-hs), 94%);
+}
+
+
+[data-theme="dark"] {
+  --fl-white-hs: 228, 9%;
+  --fl-black-hs: 220, 8%;
+
+  --fl-bg-color: hsl(var(--fl-black-hs), 12%);
+  --fl-font-color: hsl(var(--fl-white-hs), 75%);
+  --fl-border-color: hsl(var(--fl-black-hs), 35%);
+
+
+  // 卡片
+  --fl-card-bg-color: hsl(var(--fl-black-hs), 16%);
+
+
+  // 输入框
+  --fl-input-bg-color: hsl(var(--fl-black-hs), 20%);
+
+
+  // 代码块
+  --fl-code-bg-color: hsl(var(--fl-black-hs), 25%);
+  --fl-code-border-color: transparent;
+
+
+  // 引用块
+  --fl-blockquote-bg-color: hsl(var(--fl-black-hs), 20%);
+
+
+  // 按钮
+  --fl-btn-bg-color: hsl(var(--fl-black-hs), 22%);
+  --fl-btn-focus-bg-color: hsl(var(--fl-black-hs), 27%);
+
+
+  // 滚动条
+  --fl-scrollbar-thumb: hsl(var(--fl-black-hs), 35%);
+
+
+  // 下拉选择框
+  --fl-select-bg-color: hsl(var(--fl-black-hs), 22%);
+
+  // 下拉列表
+  --fl-list-bg-color: hsl(var(--fl-black-hs), 22%);
+  --fl-list-hover-bg-color: hsl(var(--fl-black-hs), 28%);
+}
+
+
+/* -------------------------------------------------------- **
+ *  重置css
+ * -------------------------------------------------------- */
 body {
-    color: var(--fl-font-color);
-    background-color: var(--fl-bg-color);
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, —apple-system, Segoe UI, Roboto, Emoji, Helvetica, Arial, sans-serif;
+}
+
+// 代码块
+code {
+  padding: 0 .35em;
+  margin: 0 2px;
+  border-radius: 3px;
+  border: 1px solid var(--fl-code-border-color);
+  background-color: var(--fl-code-bg-color);
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+
+// 引用块
+blockquote {
+  margin: 1em 0;
+  padding: .85em 1em;
+  line-height: 1.75;
+  border-left: 4px solid var(--fl-border-color);
+  background-color: var(--fl-blockquote-bg-color);
 }
 
 
 /* -------------------------------------------------------- **
- *  icon
+ *  组件
  * -------------------------------------------------------- */
-.icon-theme {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    background: var(--fl-icon-theme) no-repeat center/100%;
-    cursor: pointer;
-}
 
+[data-ui="dorp-list"] {
+  display: inline-block;
 
-/* -------------------------------------------------------- **
- *  按钮
- * -------------------------------------------------------- */
-button {
-    padding: 6px 12px;
-    outline: 0;
-    border: 0;
-    border-radius: 4px;
-    color: var(--fl-font-color);
-    background-color: var(--fl-card-bg-color);
-    border: 1px solid var(--fl-border-color);
-    transition: background-color var(--fl-transition-time);
+  &:hover ul {
+    display: block;
+  }
 
-    // 主题样式按钮
-    &[class$="primary"] {
-        color: var(--fl-white);
-        background-color: var(--fl-primary);
+  ul {
+    display: none;
+    padding: .25em .5em;
+    margin-bottom: 0;
+    list-style: none;
+    text-align: center;
+    border-radius: .5em;
+    background-color: var(--fl-list-bg-color);
+    box-shadow: var(--fl-card-shadow);
 
-        &:hover {
-            background-color: var(--fl-primary-hover);
-        }
+    li {
+      padding: 0 .75em;
+      border-radius: .25em;
+      line-height: 1.75em;
+      cursor: pointer;
     }
 
-    &:focus {
-        box-shadow: 0 0 0 3px rgba(16, 149, 193, 0.125);
+    li:hover {
+      background-color: var(--fl-list-hover-bg-color);
     }
-
-}
-
-[disabled] {
-    opacity: .4;
-    cursor: default;
+  }
 }
 
 
 /* -------------------------------------------------------- **
- *  输入框
+ *  表单
  * -------------------------------------------------------- */
-input,
+
+//  下拉选择框
+select {
+  outline: 0;
+  padding: .5em .75em;
+  padding-right: 1em;
+  background-color: var(--fl-select-bg-color);
+  border: 1px solid var(--fl-border-color);
+  border-radius: .25em;
+  font-size: inherit;
+  color: inherit;
+
+  &:focus {
+    box-shadow: 0 0 0 3px var(--fl-primary-seleced);
+  }
+}
+
+//  按钮
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  padding: .35em 1em;
+  outline: 0;
+  border: 0;
+  border-radius: .25em;
+  font-size: inherit;
+  color: var(--fl-font-color);
+  background-color: var(--fl-btn-bg-color);
+  border: 1px solid var(--fl-border-color);
+  transition: background-color var(--fl-transition-time);
+  cursor: pointer;
+
+  // 主题样式按钮
+  &[class$="primary"] {
+    border: none;
+    color: var(--fl-white);
+    background-color: var(--fl-primary);
+
+    &:hover {
+      background-color: var(--fl-primary-hover);
+    }
+
+    &:active {
+      background-color: hsl(var(--fl-primary-hs), 45%);
+    }
+  }
+
+  &:active {
+    background-color: var(--fl-btn-focus-bg-color);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px var(--fl-primary-seleced);
+  }
+
+}
+
+// 输入框
+input[type="text"],
+input[type="password"],
+input[type="search"],
 textarea {
-    outline: 0;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid var(--fl-border-color);
-    color: var(--fl-font-color);
-    background-color: var(--fl-bg-color);
-    box-sizing: border-box;
-    transition: box-shadow .35s;
+  outline: 0;
+  padding: .5em .75em;
+  border-radius: .25em;
+  border: 1px solid var(--fl-border-color);
+  color: var(--fl-font-color);
+  background-color: var(--fl-input-bg-color);
+  font-size: inherit;
+  box-sizing: border-box;
+  transition: box-shadow .35s;
 
-    &:focus {
-        box-shadow: 0 0 0 3px rgba(16, 149, 193, 0.125);
-    }
+  &:focus {
+    box-shadow: 0 0 0 3px var(--fl-primary-seleced);
+  }
 }
 
+// 禁用状态
+[disabled] {
+  opacity: .4;
+  cursor: default;
+}
 
 
 /* -------------------------------------------------------- **
  *  分页器
  * -------------------------------------------------------- */
-[f-pagination] {
-    line-height: 28px;
-    padding: 24px;
-    overflow: hidden;
+[data-pagination] {
+  line-height: 28px;
+  padding: 24px;
+  color: var(--fl-font-color);
+  overflow: hidden;
 }
 
-[f-prev],
-[f-next] {
-    float: left;
-    padding: 4px 12px;
+[data-prev],
+[data-next] {
+  float: left;
+  padding: 4px 12px;
 
+  text-align: center;
+  background-color: var(--fl-btn-bg-color);
+  border: 1px solid var(--fl-border-color);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+[data-pager] {
+  float: left;
+  margin: 0 8px;
+  padding-left: 0;
+  list-style: none;
+  overflow: hidden;
+
+  .number,
+  .more {
+    float: left;
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
     text-align: center;
-    color: var(--fl-font-color);
-    background-color: var(--fl-bg-color); 
+    border-radius: 6px;
     border: 1px solid var(--fl-border-color);
-    border-radius: 4px;
+    background-color: var(--fl-btn-bg-color);
+    transition: background-color var(--fl-transition-time);
     cursor: pointer;
+  }
 
-    &:disabled {
-        cursor: not-allowed;
-    }
-}
+  .number:last-child {
+    margin-right: 0;
+  }
 
-[f-pager] {
-    float: left;
-    margin: 0 8px;
-    list-style: none;
-    overflow: hidden;
+  .more {
+    cursor: default;
+  }
 
-    .number,
-    .more {
-        float: left;
-        width: 28px;
-        height: 28px;
-        margin-right: 8px;
-        text-align: center;
-        border-radius: 6px;
-        color: var(--fl-font-color);
-        background-color: var(--fl-list-hover);
-        transition: background-color var(--fl-transition-time);
-        cursor: pointer;
-    }
+  .more::before {
+    content: "···";
+  }
 
-    .number:last-child {
-        margin-right: 0;
-    }
-
-    .more {
-        cursor: default;
-    }
-
-    .more::before {
-        content: "···";
-    }
-
-    .active {
-        color: var(--fl-white);
-        background-color: var(--fl-primary);
-    }
+  .active {
+    border: 1px solid transparent;
+    color: var(--fl-white);
+    background-color: var(--fl-primary);
+  }
 }
 
 
 /* -------------------------------------------------------- **
- *  轻提示
- * -------------------------------------------------------- */
+*  轻提示
+* -------------------------------------------------------- */
 .f-msg {
-    --f-msg-width: 225px;
-    position: fixed;
-    top: 0;
-    left: calc(50% - var(--f-msg-width) / 2);
-    z-index: 4;
+  --f-msg-width: 225px;
+  position: fixed;
+  top: 0;
+  left: calc(50% - var(--f-msg-width) / 2);
+  z-index: 4;
 
-    width: var(--f-msg-width);
-    line-height: 42px;
-    color: var(--fl-white);
-    text-align: center;
-    border-radius: 5px;
-    opacity: 0;
-    transition: margin-top .2s, opacity .2s, top .2s;
+  width: var(--f-msg-width);
+  line-height: 42px;
+  color: var(--fl-white);
+  text-align: center;
+  border-radius: 5px;
+  opacity: 0;
+  transition: margin-top .2s, opacity .2s, top .2s;
 }
 
 .f-msg-info {
-    background-color: #a2a9b6;
+  background-color: #a2a9b6;
 }
 
 .f-msg-success {
-    background-color: var(--fl-green);
+  background-color: var(--fl-green);
 }
 
 .f-msg-error {
-    background-color: var(--fl-red);
+  background-color: var(--fl-red);
 }
 
 .f-msg-warning {
-    background-color: var(--fl-orange);
+  background-color: var(--fl-orange);
 }
 
 .f-msg-insert {
-    margin-top: 42px;
-    opacity: 1;
+  margin-top: 42px;
+  opacity: 1;
 }
 
 .f-msg-leave {
-    margin-top: 0;
-    opacity: 0;
-}
-
-
-/* -------------------------------------------------------- **
- *  滚动条
- * -------------------------------------------------------- */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--fl-scrollbar-thumb);
-    border-radius: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: var(--fl-bg-color);
-}
-
-
-/* -------------------------------------------------------- **
- *  文本选中状态
- * -------------------------------------------------------- */
-::selection {
-    background: var(--fl-primary-seleced);
-    color: var(--fl-font-color);
-}
-
-::-moz-selection {
-    background: var(--fl-primary-seleced);
-    color: var(--fl-font-color);
-}
-
-::-webkit-selection {
-    background: var(--fl-primary-seleced);
-    color: var(--fl-font-color);
+  margin-top: 0;
+  opacity: 0;
 }
 
 
@@ -285,13 +428,50 @@ textarea {
  *  工具类
  * -------------------------------------------------------- */
 .filter-blur {
-    background-color: #fff;
+  background-color: var(--fl-white);
 }
 
-@supports (-webkit-backdrop-filter:none) or (backdrop-filter:none) {
-    .filter-blur {
-        background: hsla(0, 0%, 100%, .75);
-        -webkit-backdrop-filter: blur(5px);
-        backdrop-filter: blur(5px);
-    }
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .filter-blur {
+    background: hsla(0deg, 0%, 100%, 0.75);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+}
+
+
+/* -------------------------------------------------------- **
+ *  文本选中状态
+ * -------------------------------------------------------- */
+::selection {
+  background: var(--fl-primary-seleced);
+  color: inherit;
+}
+
+::-moz-selection {
+  background: var(--fl-primary-seleced);
+  color: inherit;
+}
+
+::-webkit-selection {
+  background: var(--fl-primary-seleced);
+  color: inherit;
+}
+
+
+/* -------------------------------------------------------- **
+ *  滚动条
+ * -------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--fl-scrollbar-thumb);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--fl-bg-color);
 }
