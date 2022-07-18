@@ -366,7 +366,7 @@ const Fleet = (function (global) {
         throw new TypeError('Invalid params, is not an string!');
       }
 
-      this.elm = this.$getElement('[fl="' + f + '"]');
+      this.elm = this.$getElement('[data-fleet="' + f + '"]');
 
       if (!this.elm) {
         throw new ReferenceError(`'${f}' is not defined!`);
@@ -654,7 +654,7 @@ const Fleet = (function (global) {
 
 
     initParam(p) {
-      this.el = this.$getElement('[f-pagination="' + p.el + '"]');
+      this.el = this.$getElement('[data-pagination="' + p.el + '"]');
       this.info = {
         limit: p.limit || 10,
         total: p.total,
@@ -851,9 +851,9 @@ const Fleet = (function (global) {
 
 
     _init(form, rules) {
-      this.elm = this.$getElement('[f-form="' + form + '"]');
+      this.elm = this.$getElement('[data-form="' + form + '"]');
       this.rules = this._initRules(rules);
-      this.fields = this.elm.$$('[f-validate]');
+      this.fields = this.elm.$$('[data-validate]');
       this.LightTip = new Fleet.LightTip();
       this.bindEvents();
     }
@@ -921,7 +921,7 @@ const Fleet = (function (global) {
 
       this.fields.forEach(item => {
         const name = item.localName;
-        const type = item.getAttribute('f-validate');
+        const type = item.getAttribute('data-validate');
 
         if (name === 'input') {
           result.push(this.validate(item, type));
@@ -956,7 +956,7 @@ const Fleet = (function (global) {
       }
 
       if (type === 'confirm') {
-        const password = this.form.$('[f-validate="password"]').value;
+        const password = this.form.$('[data-validate="password"]').value;
 
         if (password !== value) {
           this.LightTip.error('两次输入的密码不一致');
@@ -969,7 +969,7 @@ const Fleet = (function (global) {
 
     select(e) {
       const target = e.target;
-      const type = target.getAttribute('f-validate');
+      const type = target.getAttribute('data-validate');
 
       if (type === 'required') {
         return this.validate(target, type);
@@ -979,7 +979,7 @@ const Fleet = (function (global) {
 
     textarea(e) {
       const target = e.target;
-      const type = target.getAttribute('f-validate');
+      const type = target.getAttribute('data-validate');
 
       if (type === 'required') {
         return this.validate(target, type);
@@ -988,9 +988,54 @@ const Fleet = (function (global) {
 
   }
 
+  /* -------------------------------------------------------- **
+   *  选项卡切换器
+   * -------------------------------------------------------- */
+  class TabSwitcher extends Utils {
+
+    constructor(tabs, flag) {
+      super();
+      this._init(tabs, flag);
+    }
+
+    _init(tabs, flag) {
+      this._initParams(tabs, flag);
+      this._initEvents();
+    }
+
+    _initEvents() {
+      this.elm.$$('[data-tab]').forEach(tab => {
+        tab.addEventListener('click', this._toggle.bind(this, tab));
+      });
+    }
+
+    _toggle(tab) {
+      const tabName = tab.getAttribute('data-tab');
+      const filters = $$('[data-filter]');
+      const target = [...filters].find(item => (
+        item.getAttribute('data-filter') === tabName
+      ));
+
+      this.$clearFlag(filters, this.flag);
+      target.classList.add(this.flag);
+    }
+
+    _initParams(tabs, flag) {
+
+      if (!tabs) {
+        throw new TypeError('Invalid params, is not an string!');
+      }
+
+      this.elm = this.$getElement('[data-tabs="' + tabs + '"]');
+      this.flag = flag || 'active';
+    }
+  }
+
+
   Fleet.LightTip = LightTip;
   Fleet.Pagination = Pagination;
   Fleet.FormValidator = FormValidator;
+  Fleet.TabSwitcher = TabSwitcher;
 
   return Fleet;
 })(this);

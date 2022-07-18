@@ -61,7 +61,7 @@ class UseTest extends Fleet {
 const test = new UseTest("useFleet");
 console.log(test);
 ```
-
+![image-20220714105334149](README.assets/image-20220714105334149.png)
 
 如上所示，
 

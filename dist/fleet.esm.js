@@ -988,9 +988,54 @@ export default (function (global) {
 
   }
 
+  /* -------------------------------------------------------- **
+   *  选项卡切换器
+   * -------------------------------------------------------- */
+  class TabSwitcher extends Utils {
+
+    constructor(tabs, flag) {
+      super();
+      this._init(tabs, flag);
+    }
+
+    _init(tabs, flag) {
+      this._initParams(tabs, flag);
+      this._initEvents();
+    }
+
+    _initEvents() {
+      this.elm.$$('[data-tab]').forEach(tab => {
+        tab.addEventListener('click', this._toggle.bind(this, tab));
+      });
+    }
+
+    _toggle(tab) {
+      const tabName = tab.getAttribute('data-tab');
+      const filters = $$('[data-filter]');
+      const target = [...filters].find(item => (
+        item.getAttribute('data-filter') === tabName
+      ));
+
+      this.$clearFlag(filters, this.flag);
+      target.classList.add(this.flag);
+    }
+
+    _initParams(tabs, flag) {
+
+      if (!tabs) {
+        throw new TypeError('Invalid params, is not an string!');
+      }
+
+      this.elm = this.$getElement('[data-tabs="' + tabs + '"]');
+      this.flag = flag || 'active';
+    }
+  }
+
+
   Fleet.LightTip = LightTip;
   Fleet.Pagination = Pagination;
   Fleet.FormValidator = FormValidator;
+  Fleet.TabSwitcher = TabSwitcher;
 
   return Fleet;
 })(this);
