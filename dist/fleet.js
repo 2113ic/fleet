@@ -621,13 +621,16 @@ const Fleet = (function (global) {
     init(p) {
       this.paramHandle(p);
       this.initConfig();
-      this.initInfo();
-      this.initEvents();
-      this.initList();
 
-      this.nums = this.pager.getElementsByClassName("number");
-      this.more = this.pager.getElementsByClassName("more");
-      this.info.cur = 1;
+      if (this.info.total !== 0) {
+        this.initInfo();
+        this.initEvents();
+        this.initList();
+        
+        this.nums = this.pager.getElementsByClassName("number");
+        this.more = this.pager.getElementsByClassName("more");
+        this.info.cur = 1;
+      }
     }
 
 
@@ -635,10 +638,6 @@ const Fleet = (function (global) {
 
       if (!p) {
         throw new TypeError('Invalid params');
-      }
-
-      if (p.total === 0) {
-        throw new TypeError('Invalid total, must be greater than zero');
       }
 
       if (p.pageCount && !p.pageCount % 2 === 0) {
@@ -659,19 +658,20 @@ const Fleet = (function (global) {
         limit: p.limit || 10,
         total: p.total,
         pageCount: p.pageCount || 7,
-        pages: Math.ceil(p.total / p.limit || 10),
+        pages: Math.ceil(p.total / (p.limit || 10)),
       };
-      this.half = Math.floor(p.pageCount || 7 / 2);
+      this.half = Math.floor(p.pageCount || (7 / 2));
       this.singlePageHide = p.singlePageHide || false;
-      this.jump = p.jump || (() => { });
+      this.jump = p.jump || (() => {});
       [this.prevBtn, this.pager, this.nextBtn] = [...this.el.children];
     }
 
 
     initConfig() {
-      if (!this.singlePageHide) return;
 
-      this.el.hidden = true;
+      if (this.info.pages <= 1 && this.singlePageHide) {
+        this.el.style.display = 'none';
+      }
     }
 
 
