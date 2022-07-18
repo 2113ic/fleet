@@ -469,7 +469,7 @@ export default (function (global) {
 
       for (let i = 0; i < bindAttrNum; i++) {
         const groups = bindAttrReg.exec(nodeStr).groups;
-        
+
         if (groups.flag === "$") {
           this._processRef(node, groups);
           continue;
@@ -663,7 +663,7 @@ export default (function (global) {
       };
       this.half = Math.floor(p.pageCount || 7 / 2);
       this.singlePageHide = p.singlePageHide || false;
-      this.jump = p.jump || (() => {});
+      this.jump = p.jump || (() => { });
       [this.prevBtn, this.pager, this.nextBtn] = [...this.el.children];
     }
 
@@ -995,21 +995,21 @@ export default (function (global) {
 
     constructor(tabs, flag) {
       super();
-      this._init(tabs, flag);
+      this.init(tabs, flag);
     }
 
-    _init(tabs, flag) {
-      this._initParams(tabs, flag);
-      this._initEvents();
+    init(tabs, flag) {
+      this.initParams(tabs, flag);
+      this.initEvents();
     }
 
-    _initEvents() {
+    initEvents() {
       this.elm.$$('[data-tab]').forEach(tab => {
-        tab.addEventListener('click', this._toggle.bind(this, tab));
+        tab.addEventListener('click', this.toggle.bind(this, tab));
       });
     }
 
-    _toggle(tab) {
+    toggle(tab) {
       const tabName = tab.getAttribute('data-tab');
       const filters = $$('[data-filter]');
       const target = [...filters].find(item => (
@@ -1020,7 +1020,7 @@ export default (function (global) {
       target.classList.add(this.flag);
     }
 
-    _initParams(tabs, flag) {
+    initParams(tabs, flag) {
 
       if (!tabs) {
         throw new TypeError('Invalid params, is not an string!');
@@ -1031,7 +1031,7 @@ export default (function (global) {
     }
   }
 
-
+  Fleet.Utils = Utils;
   Fleet.LightTip = LightTip;
   Fleet.Pagination = Pagination;
   Fleet.FormValidator = FormValidator;
