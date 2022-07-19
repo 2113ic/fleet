@@ -1019,7 +1019,7 @@ export default (function (global) {
       this.$clearFlag(filters, this.flag);
       this.$clearFlag(this.tabs, this.flag);
       target.classList.add(this.flag);
-      tabs.classList.add(this.flag);
+      this.tabs.classList.add(this.flag);
     }
 
     initParams(tabs, flag) {
