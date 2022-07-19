@@ -1004,7 +1004,7 @@ const Fleet = (function (global) {
     }
 
     initEvents() {
-      this.elm.$$('[data-tab]').forEach(tab => {
+      this.tabs.forEach(tab => {
         tab.addEventListener('click', this.toggle.bind(this, tab));
       });
     }
@@ -1017,7 +1017,9 @@ const Fleet = (function (global) {
       ));
 
       this.$clearFlag(filters, this.flag);
+      this.$clearFlag(this.tabs, this.flag);
       target.classList.add(this.flag);
+      tabs.classList.add(this.flag);
     }
 
     initParams(tabs, flag) {
@@ -1027,6 +1029,7 @@ const Fleet = (function (global) {
       }
 
       this.elm = this.$getElement('[data-tabs="' + tabs + '"]');
+      this.tabs = this.elm.$$('[data-tab]');
       this.flag = flag || 'active';
     }
   }
